@@ -22,7 +22,7 @@ sess = tf.InteractiveSession()
 x = tf.random_uniform([])  # Empty array as shape creates a scalar.
 y = tf.random_uniform([])
 out = tf.cond(tf.greater(x, y), lambda: x + y, lambda: x - y)
-print(sess.run(out))
+#print(sess.run([x,y,out]))
 
 ###############################################################################
 # 1b: Create two 0-d tensors x and y randomly selected from the range [-1, 1).
@@ -31,6 +31,10 @@ print(sess.run(out))
 ###############################################################################
 
 # YOUR CODE
+x = tf.random_uniform([],-1,1)
+y = tf.random_uniform([],-1,1)
+out = tf.case([(tf.less(x,y), lambda: x+y),(tf.greater(x,y),lambda: x-y)], lambda: tf.constant(0,tf.float32))
+#print(sess.run([x,y,out]))
 
 ###############################################################################
 # 1c: Create the tensor x of the value [[0, -2, -1], [0, 1, 2]] 
@@ -40,6 +44,10 @@ print(sess.run(out))
 ###############################################################################
 
 # YOUR CODE
+x = tf.constant([[0, -2, -1],[0, 1, 2]])
+y = tf.zeros_like(x)
+out = tf.equal(x,y)
+#print(sess.run(out))
 
 ###############################################################################
 # 1d: Create the tensor x of value 
@@ -55,6 +63,14 @@ print(sess.run(out))
 ###############################################################################
 
 # YOUR CODE
+x = tf.constant([29.05088806,  27.61298943,  31.19073486,  29.35532951,
+  30.97266006,  26.67541885,  38.08450317,  20.74983215,
+  34.94445419,  34.45999146,  29.06485367,  36.01657104,
+  27.88236427,  20.56035233,  30.20379066,  29.51215172,
+  33.71149445,  28.59134293,  36.05556488,  28.66994858])
+idx = tf.where(tf.greater(x,30))
+out = tf.gather(x,idx)
+#print sess.run(out)
 
 ###############################################################################
 # 1e: Create a diagnoal 2-d tensor of size 6 x 6 with the diagonal values of 1,
@@ -63,6 +79,8 @@ print(sess.run(out))
 ###############################################################################
 
 # YOUR CODE
+out = tf.diag(tf.range(1,7))
+
 
 ###############################################################################
 # 1f: Create a random 2-d tensor of size 10 x 10 from any distribution.
@@ -79,6 +97,9 @@ print(sess.run(out))
 ###############################################################################
 
 # YOUR CODE
+x = tf.constant([5, 2, 3, 5, 10, 6, 2, 3, 4, 2, 1, 1, 0, 9])
+y,idx = tf.unique(x)
+#print sess.run(y)
 
 ###############################################################################
 # 1h: Create two tensors x and y of shape 300 from any normal distribution,

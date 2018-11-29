@@ -53,7 +53,8 @@ def download_one_file(download_url,
         print('%s already exists' %local_dest)
     else:
         print('Downloading %s' %download_url)
-        local_file, _ = urllib.request.urlretrieve(download_url, local_dest)
+        #local_file, _ = urllib.request.urlretrieve(download_url, local_dest)
+        local_file, _ = urllib.urlretrieve(download_url, local_dest)
         file_stat = os.stat(local_dest)
         if expected_byte:
             if file_stat.st_size == expected_byte:
